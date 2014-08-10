@@ -10,8 +10,9 @@ import base64, hmac, hashlib, json
 if hasattr(settings, "AWS_UPLOAD_CLIENT_KEY") and hasattr(settings, "AWS_UPLOAD_CLIENT_SECRET_KEY"):
     try:
         import boto
+        import logging
         from boto.s3.connection import Key, S3Connection
-        boto.set_stream_logger('boto')
+        boto.set_stream_logger('boto', level=logging.INFO)
         S3 = S3Connection(settings.AWS_UPLOAD_CLIENT_KEY, settings.AWS_UPLOAD_CLIENT_SECRET_KEY)
     except ImportError as e:
         print("Could not import boto, the Amazon SDK for Python.")
